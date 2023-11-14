@@ -16,12 +16,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer createCustomer(Customer customer) {
-        return null;
+        return customerRepository.save(customer);
     }
 
     @Override
     public List<Customer> findAllCustomers() {
-        return null;
+        return customerRepository.findAll();
     }
 
     @Override

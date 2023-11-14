@@ -37,7 +37,7 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<CustomerResponse> createCustome(@RequestBody @Valid CustomerRequest request) {
+    public ResponseEntity<CustomerResponse> createCustomer(@RequestBody @Valid CustomerRequest request) {
         var customer = mapper.map(request,Customer.class);
         customer = customerService.createCustomer(customer);
         var response = mapper.map(customer, CustomerResponse.class);

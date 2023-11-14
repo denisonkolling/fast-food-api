@@ -7,6 +7,6 @@ public class CustomerResponse {
 
     private Long cpf;
 
-    private String nome;
+    private String name;
 
 }
