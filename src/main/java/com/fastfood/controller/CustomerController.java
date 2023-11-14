@@ -36,12 +36,35 @@ public class CustomerController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/{cpf}")
+    public ResponseEntity<CustomerResponse> findCustomerById(@PathVariable("cpf") Long cpf){
+        Customer customer = customerService.findCustomerById(cpf);
+        CustomerResponse response = mapper.map(customer,CustomerResponse.class);
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping
-    public ResponseEntity<CustomerResponse> createCustomer(@RequestBody @Valid CustomerRequest request) {
-        var customer = mapper.map(request,Customer.class);
+    public ResponseEntity<CustomerResponse> createCustomer(@RequestBody @Valid CustomerRequest customerRequest) {
+        var customer = mapper.map(customerRequest,Customer.class);
         customer = customerService.createCustomer(customer);
         var response = mapper.map(customer, CustomerResponse.class);
         return ResponseEntity.created(URI.create(customer.getCpf().toString())).body(response);
     }
+
+    @PutMapping("{cpf}")
+    public ResponseEntity<CustomerResponse> editCustomer(@PathVariable("cpf") Long cpf, @RequestBody @Valid CustomerRequest request) {
+        var customer = mapper.map(request, Customer.class);
+        customer.setCpf(cpf);
+        customer = customerService.editCustomer(customer);
+        var response = mapper.map(customer, CustomerResponse.class);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("{cpf}")
+    public ResponseEntity deleteCustomer(@PathVariable("cpf") Long cpf) {
+        customerService.deleteCustomer(cpf);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }

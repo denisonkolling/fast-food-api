@@ -12,4 +12,8 @@ public interface CustomerService {
 
     Customer findCustomerById(Long cpf);
 
+    Customer editCustomer(Customer customer);
+
+    void deleteCustomer(Long cpf);
+
 }
