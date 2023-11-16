@@ -45,7 +45,7 @@ public class TokenServiceImpl implements TokenService {
         String token = JWT.create()
                 .withSubject(user.getEmail())
                 .withExpiresAt(expiration)
-                .withIssuer("Lanchonete-API")
+                .withIssuer("FastFood-API")
                 .withClaim("roles", user.getRole().name())
                 .sign(algorithm);
         return token;
