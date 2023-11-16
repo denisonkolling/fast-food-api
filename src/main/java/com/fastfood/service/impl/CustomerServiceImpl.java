@@ -43,8 +43,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void deleteCustomer(Long cpf) {
-        boolean existsCustomer = customerRepository.existsById(cpf);
-        if (!existsCustomer) {
+        boolean customerExists = customerRepository.existsById(cpf);
+        if (!customerExists) {
             throw new IllegalArgumentException("CPF not found");
         }
         customerRepository.deleteById(cpf);

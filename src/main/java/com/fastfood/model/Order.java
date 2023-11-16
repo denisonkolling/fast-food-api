@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -39,5 +40,19 @@ public class Order {
         this.customer = customer;
     }
 
+    public void addProduct(Product product, int qty) {
+        if (items == null)
+            items = new ArrayList<>();
+        float value = product.getPrice() * qty;
+        var orderItem = new OrderItem(this, product.getNumber(), qty, value);
+        items.add(orderItem);
+    }
+
+    public void addProduct(Integer productNumber, int qty) {
+        if (items == null)
+            items = new ArrayList<>();
+        var orderItem = new OrderItem(this, productNumber, qty, 0F);
+        items.add(orderItem);
+    }
 
 }

@@ -12,5 +12,5 @@ public interface OrderService {
 
     Order findOrderById(Integer id);
 
-    String deleteOrder(Integer id);
+    void deleteOrder(Integer id);
 }
