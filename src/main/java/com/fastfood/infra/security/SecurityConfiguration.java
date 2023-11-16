@@ -34,9 +34,9 @@ public class SecurityConfiguration {
         http.csrf(csrf -> csrf.disable())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.GET, "/usuarios").permitAll()  // white list: fetch users list
-                        .requestMatchers(HttpMethod.POST, "/usuarios/login").permitAll() // white list: login endpoint
-                        .anyRequest().authenticated()  // todos os outros endpoints tem que ser autenticados
+                        .requestMatchers(HttpMethod.GET, "/usuarios").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAutenticadorFilter, UsernamePasswordAuthenticationFilter.class);
