@@ -39,6 +39,22 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Product not found"));
     }
 
+    @Override
+    public Product updateProduct(Product product) {
+        Product productDB = productRepository.findById(product.getNumber()).orElseThrow(() -> new IllegalArgumentException("Product not found"));
+        mapper.map(product, productDB);
+        productDB = productRepository.save(productDB);
+        return productDB;
+    }
+
+    @Override
+    public void deleteProduct(Integer id) {
+        boolean productExists = productRepository.existsById(id);
+        if (!productExists){
+            throw new IllegalArgumentException("Product not found");
+        }
+        productRepository.deleteById(id);
+    }
 
 
 }

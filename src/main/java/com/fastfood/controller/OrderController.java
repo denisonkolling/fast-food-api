@@ -26,7 +26,7 @@ public class OrderController {
     private ModelMapper mapper;
 
     @GetMapping
-    public ResponseEntity<List<OrderResponse>> findAll(){
+    public ResponseEntity<List<OrderResponse>> findAllOrders(){
         List<Order> orders = orderService.findAllOrders();
         var response = orders
                 .stream()
