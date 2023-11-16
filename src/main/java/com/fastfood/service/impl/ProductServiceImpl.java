@@ -3,6 +3,8 @@ package com.fastfood.service.impl;
 import com.fastfood.model.Product;
 import com.fastfood.repository.ProductRepository;
 import com.fastfood.service.ProductService;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.internal.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,19 +16,29 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private ModelMapper mapper;
 
     @Override
     public Product createProduct(Product product) {
-        return null;
+        boolean productExists = productRepository.existsById(product.getNumber());
+        if (productExists){
+            throw new IllegalArgumentException("Product already created");
+        }
+        product = productRepository.save(product);
+        return product;
     }
 
     @Override
     public List<Product> findAllProducts() {
-        return null;
+        return productRepository.findAll();
     }
 
     @Override
     public Product findProductById(Integer id) {
-        return null;
+        return productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Product not found"));
     }
+
+
+
 }
