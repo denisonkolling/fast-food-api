@@ -31,13 +31,27 @@ public class SecurityConfiguration {
         this.passwordEncoder = passwordEncoder;
     }
 
+    private static final String[] AUTH_WHITELIST = {
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            "/v3/api-docs/**",
+            "/swagger-ui/**"
+    };
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/usuarios").permitAll()
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                        .requestMatchers(AUTH_WHITELIST).permitAll()
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())
