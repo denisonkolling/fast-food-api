@@ -3,7 +3,6 @@ package com.fastfood.service.impl;
 import com.fastfood.model.Customer;
 import com.fastfood.repository.CustomerRepository;
 import com.fastfood.service.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 
@@ -12,11 +11,14 @@ import java.util.List;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-    @Autowired
-    CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
-    @Autowired
-    private ModelMapper mapper;
+    private final ModelMapper mapper;
+
+    public CustomerServiceImpl(CustomerRepository customerRepository, ModelMapper mapper) {
+        this.customerRepository = customerRepository;
+        this.mapper = mapper;
+    }
 
     @Override
     public Customer createCustomer(Customer customer) {

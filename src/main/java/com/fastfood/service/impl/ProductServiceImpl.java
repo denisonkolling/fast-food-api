@@ -4,8 +4,6 @@ import com.fastfood.model.Product;
 import com.fastfood.repository.ProductRepository;
 import com.fastfood.service.ProductService;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.internal.bytebuddy.implementation.bytecode.Throw;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,11 +11,14 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
     private ProductRepository productRepository;
 
-    @Autowired
     private ModelMapper mapper;
+
+    public ProductServiceImpl(ProductRepository productRepository, ModelMapper mapper) {
+        this.productRepository = productRepository;
+        this.mapper = mapper;
+    }
 
     @Override
     public Product createProduct(Product product) {

@@ -8,7 +8,6 @@ import com.fastfood.repository.OrderRepository;
 import com.fastfood.service.CustomerService;
 import com.fastfood.service.OrderService;
 import com.fastfood.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,14 +15,17 @@ import java.util.List;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-    @Autowired
     private OrderRepository orderRepository;
 
-    @Autowired
     private CustomerService customerService;
 
-    @Autowired
     private ProductService productService;
+
+    public OrderServiceImpl(OrderRepository orderRepository, CustomerService customerService, ProductService productService) {
+        this.orderRepository = orderRepository;
+        this.customerService = customerService;
+        this.productService = productService;
+    }
 
     @Override
     public Order createOrder(Order order) {

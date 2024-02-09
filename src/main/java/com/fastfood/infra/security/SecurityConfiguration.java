@@ -1,6 +1,5 @@
 package com.fastfood.infra.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -20,14 +19,17 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-    @Autowired
     private JwtAuthenticationFilter jwtAutenticadorFilter;
 
-    @Autowired
     private UserDetailsService usuarioService;
 
-    @Autowired
     private PasswordEncoder passwordEncoder;
+
+    public SecurityConfiguration(JwtAuthenticationFilter jwtAutenticadorFilter, UserDetailsService usuarioService, PasswordEncoder passwordEncoder) {
+        this.jwtAutenticadorFilter = jwtAutenticadorFilter;
+        this.usuarioService = usuarioService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
